@@ -1,0 +1,81 @@
+# Fetches the news, builds the site and publishes it on GitHub Pages.
+# Runs every hour, on every push to main, and on demand (Actions tab > "Run workflow").
+name: Update and deploy
+
+on:
+  schedule:
+    - cron: "23 * * * *"   # every hour at minute 23 (UTC); GitHub may delay scheduled runs a little
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Never run two updates at the same time.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run tests
+        run: python -m pytest -q
+
+      # The previous run's data/ folder is kept in the Actions cache, so articles
+      # from a source that is temporarily down are not lost.
+      - name: Restore previous data
+        uses: actions/cache/restore@v4
+        with:
+          path: data
+          key: news-data-${{ github.run_id }}
+          restore-keys: news-data-
+
+      - name: Fetch news
+        run: python -m pipeline.run
+
+      - name: Save data for the next run
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: data
+          key: news-data-${{ github.run_id }}
+
+      - name: Configure GitHub Pages
+        id: pages
+        uses: actions/configure-pages@v5
+
+      - name: Build site
+        run: python site/build.py
+        env:
+          BASE_PATH: ${{ steps.pages.outputs.base_path }}/
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
