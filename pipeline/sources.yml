@@ -1,0 +1,124 @@
+# News sources read by the pipeline.
+#
+# Each source needs:
+#   name:    display name shown on the site
+#   url:     the RSS or Atom feed URL
+#   themes:  default themes for every article from this source
+#            (allowed: europe, us, macro, markets)
+#   kind:    "official" (central bank, regulator, statistics office) or "media"
+#   enabled: set to false to switch a source off without deleting it
+#
+# See SOURCES.md for how each feed was checked and its terms of use.
+
+sources:
+  # --- Central banks and official bodies -----------------------------------
+  - name: European Central Bank (press)
+    url: https://www.ecb.europa.eu/rss/press.html
+    themes: [europe, macro]
+    kind: official
+    enabled: true
+
+  - name: European Central Bank (blog)
+    url: https://www.ecb.europa.eu/rss/blog.html
+    themes: [europe, macro]
+    kind: official
+    enabled: true
+
+  - name: Federal Reserve (all press releases)
+    url: https://www.federalreserve.gov/feeds/press_all.xml
+    themes: [us, macro]
+    kind: official
+    enabled: true
+
+  - name: Federal Reserve (monetary policy)
+    url: https://www.federalreserve.gov/feeds/press_monetary.xml
+    themes: [us, macro]
+    kind: official
+    enabled: true
+
+  - name: Federal Reserve (speeches)
+    url: https://www.federalreserve.gov/feeds/speeches.xml
+    themes: [us, macro]
+    kind: official
+    enabled: true
+
+  - name: Bank of England (news)
+    url: https://www.bankofengland.co.uk/rss/news
+    themes: [europe, macro]
+    kind: official
+    enabled: true
+
+  - name: BIS (central bankers' speeches)
+    url: https://www.bis.org/doclist/cbspeeches.rss
+    themes: [macro]
+    kind: official
+    enabled: true
+
+  - name: U.S. SEC (press releases)
+    url: https://www.sec.gov/news/pressreleases.rss
+    themes: [us, markets]
+    kind: official
+    enabled: true
+
+  # --- Financial media ------------------------------------------------------
+  - name: Seeking Alpha (market news)
+    url: https://seekingalpha.com/market_currents.xml
+    themes: [markets, us]
+    kind: media
+    enabled: true
+
+  - name: Investing.com (stock market news)
+    url: https://www.investing.com/rss/news_25.rss
+    themes: [markets]
+    kind: media
+    enabled: true
+
+  - name: Investing.com (economy news)
+    url: https://www.investing.com/rss/news_14.rss
+    themes: [macro]
+    kind: media
+    enabled: true
+
+  - name: Investing.com (forex news)
+    url: https://www.investing.com/rss/news_1.rss
+    themes: [markets]
+    kind: media
+    enabled: true
+
+  - name: Yahoo Finance
+    url: https://finance.yahoo.com/news/rssindex
+    themes: [markets, us]
+    kind: media
+    enabled: true
+
+  - name: Nasdaq (markets)
+    url: https://www.nasdaq.com/feed/rssoutbound?category=Markets
+    themes: [markets, us]
+    kind: media
+    enabled: true
+
+  - name: FXStreet (forex and commodities)
+    url: https://www.fxstreet.com/rss/news
+    themes: [markets]
+    kind: media
+    enabled: true
+
+  # --- Not yet verified (could not be reached from the build machine) -------
+  # Switch to enabled: true after checking that the feed works (see SOURCES.md).
+  - name: BBC News (business)
+    url: https://feeds.bbci.co.uk/news/business/rss.xml
+    themes: [europe]
+    kind: media
+    enabled: false
+
+  - name: The Guardian (business)
+    url: https://www.theguardian.com/business/rss
+    themes: [europe]
+    kind: media
+    enabled: false
+
+  - name: CNBC (economy)
+    url: https://www.cnbc.com/id/20910258/device/rss/rss.html
+    themes: [us, macro]
+    kind: media
+    enabled: false
