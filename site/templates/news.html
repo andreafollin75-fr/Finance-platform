@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Financial news</h1>
+<p class="lead">Headlines from central banks, regulators and financial media, updated every hour. Underlined words are explained in the <a href="{{ base }}glossary/">glossary</a>: hover or focus them for a quick definition.</p>
+
+<div class="filters" role="group" aria-label="Filter by theme">
+  <button type="button" class="filter" data-filter="all" aria-pressed="true">All</button>
+  {% for key, label in themes.items() %}<button type="button" class="filter" data-filter="{{ key }}" aria-pressed="false">{{ label }}</button>{% endfor %}
+</div>
+<p class="muted filter-count" aria-live="polite"></p>
+
+{% if stories %}
+<div class="story-list">
+  {% for story in stories %}{% include "_story.html" %}{% endfor %}
+</div>
+<p class="empty-filter muted" hidden>No stories for this theme right now.</p>
+{% else %}
+<p class="notice">No news yet. The feed fills up automatically after the first scheduled update.</p>
+{% endif %}
+{% endblock %}

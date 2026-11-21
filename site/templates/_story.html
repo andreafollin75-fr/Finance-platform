@@ -1,0 +1,24 @@
+{# One story card. Expects `story` (and optionally `score`). #}
+{% set lead = story.lead %}
+<article class="story" data-themes="{{ story.themes | join(' ') }}">
+  <h3 class="story-title"><a href="{{ lead.url }}" rel="noopener" target="_blank">{{ lead.title }}<span class="visually-hidden"> (opens the original article on {{ lead.source }})</span></a></h3>
+  <p class="story-meta">
+    <span class="source{% if lead.source_kind == 'official' %} official{% endif %}">{{ lead.source }}</span>
+    · <time datetime="{{ lead.published }}" data-local>{{ lead.published | date }}</time>
+    {% for t in story.themes %}<span class="tag tag-{{ t }}">{{ themes[t] }}</span>{% endfor %}
+  </p>
+  {% if lead.excerpt %}<p class="excerpt">{{ lead.excerpt | terms }}</p>{% endif %}
+  {% set concepts = lead.title | concepts %}
+  {% if concepts %}<p class="concepts"><span class="muted">Concepts in this headline:</span> {% for c in concepts %}<a class="chip" href="{{ base }}glossary/{{ c.slug }}/" title="{{ c.short }}">{{ c.label }}</a>{% endfor %}</p>{% endif %}
+  {% if story.related %}
+  <details class="related">
+    <summary>Also covered by {{ story.related | length }} more {{ 'article' if story.related | length == 1 else 'articles' }}</summary>
+    <ul>
+      {% for a in story.related %}<li><a href="{{ a.url }}" rel="noopener" target="_blank">{{ a.title }}</a> <span class="muted">({{ a.source }})</span></li>{% endfor %}
+    </ul>
+  </details>
+  {% endif %}
+  {% if score %}
+  <p class="score muted">Score {{ score.total }} = coverage {{ score.coverage }} + freshness {{ score.freshness }} + theme {{ score.theme }} + official source {{ score.official }}</p>
+  {% endif %}
+</article>

@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}About & Legal · {{ site_name }}{% endblock %}
+{% block content %}
+<h1>About &amp; Legal</h1>
+
+<section>
+  <h2>What this site is</h2>
+  <p>{{ site_name }} gathers financial news from central banks, regulators and financial media in one place, and explains the concepts behind the headlines for non-experts. It is a personal, non-commercial project. It is updated automatically every hour and runs entirely on free services.</p>
+</section>
+
+<section class="legal">
+  <h2>Not investment advice</h2>
+  <p><strong>{{ disclaimer }}</strong></p>
+  <p>Nothing on this site is a recommendation to buy, sell or hold any security or financial product. Explanations are simplified for learning purposes and may leave out details that matter in real decisions. Examples in the glossary are hypothetical unless stated otherwise. Markets can go down as well as up, and past performance is not a guide to future results. Before making financial decisions, consider talking to a qualified, independent adviser.</p>
+</section>
+
+<section>
+  <h2>How news is handled</h2>
+  <ul>
+    <li>We never republish full articles. For each item we show only the headline, the short description provided in the source's own RSS feed (cut to a few lines), the source name, the date and a link to the original article.</li>
+    <li>All rights in the articles belong to their publishers. If you are a publisher and want your feed removed, please open an issue on the project's repository.</li>
+    <li>Similar headlines are grouped and themes are assigned with simple keyword rules. These rules can make mistakes.</li>
+    <li>The <a href="{{ base }}briefing/">Daily Briefing</a> is ranked by a transparent scoring rule explained on that page. No AI is used anywhere on the site.</li>
+    <li>Words found in the <a href="{{ base }}glossary/">glossary</a> ({{ glossary_count }} concepts) are detected automatically in headlines and linked to their definition.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Sources and their status</h2>
+  {% if status %}
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th scope="col">Source</th><th scope="col">Status at last update</th><th scope="col">Last successful fetch</th></tr></thead>
+    <tbody>
+      {% for name, s in status.items() %}
+      <tr>
+        <td><a href="{{ s.url }}" rel="noopener">{{ name }}</a></td>
+        <td>{% if s.ok %}<span class="ok">Working</span>{% else %}<span class="fail">Unavailable</span> <span class="muted">({{ s.error }})</span>{% endif %}</td>
+        <td>{% if s.last_success %}<time datetime="{{ s.last_success }}" data-local>{{ s.last_success | date }}</time>{% else %}never{% endif %}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  </div>
+  {% else %}
+  <p class="muted">Source status appears after the first update.</p>
+  {% endif %}
+  <p>When a source is unavailable, its most recent articles stay on the site until they are a week old.</p>
+</section>
+{% endblock %}
