@@ -1,0 +1,8 @@
+# Runtime dependencies for the data pipeline and the static site builder.
+feedparser==6.0.14
+PyYAML==6.0.4
+Jinja2==3.1.6
+Markdown==3.11.3
+requests==2.34.2
+# Testing
+pytest==9.2.0
