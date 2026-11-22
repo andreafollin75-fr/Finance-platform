@@ -85,70 +85,65 @@ sources:
     kind: media
     enabled: true
 
-  - name: Yahoo Finance
-    url: https://finance.yahoo.com/news/rssindex
-    themes: [markets, us]
-    kind: media
-    enabled: true
-
-  - name: Nasdaq (markets)
-    url: https://www.nasdaq.com/feed/rssoutbound?category=Markets
-    themes: [markets, us]
-    kind: media
-    enabled: true
-
-  - name: FXStreet (forex and commodities)
-    url: https://www.fxstreet.com/rss/news
-    themes: [markets]
-    kind: media
-    enabled: true
-
-  # --- Not yet verified (could not be reached from the build machine) -------
-  # Switch to enabled: true after checking that the feed works (see SOURCES.md).
   - name: BBC News (business)
     url: https://feeds.bbci.co.uk/news/business/rss.xml
     themes: [europe]
     kind: media
-    enabled: false
+    enabled: true
 
   - name: The Guardian (business)
     url: https://www.theguardian.com/business/rss
     themes: [europe]
     kind: media
-    enabled: false
+    enabled: true
 
   - name: The Guardian (economics)
     url: https://www.theguardian.com/business/economics/rss
-    themes: [macro]
+    themes: [europe, macro]
     kind: media
-    enabled: false
+    enabled: true
 
   - name: CNBC (economy)
     url: https://www.cnbc.com/id/20910258/device/rss/rss.html
     themes: [us, macro]
     kind: media
-    enabled: false
+    enabled: true
 
   - name: CNBC (finance)
     url: https://www.cnbc.com/id/10000664/device/rss/rss.html
     themes: [us, markets]
     kind: media
-    enabled: false
+    enabled: true
 
   - name: MarketWatch (top stories)
     url: https://feeds.content.dowjones.io/public/rss/mw_topstories
     themes: [us, markets]
     kind: media
-    enabled: false
+    enabled: true
 
   - name: The Economist (finance and economics)
     url: https://www.economist.com/finance-and-economics/rss.xml
     themes: [macro, markets]
     kind: media
-    enabled: false
+    enabled: true
 
-  - name: Yahoo Finance (top stories)
-    url: https://finance.yahoo.com/rss/topstories
+  # --- Disabled: these refused requests from GitHub's servers (22 Nov 2026) --
+  # Run "python -m pipeline.check_sources" (or the "Check sources" workflow)
+  # before switching one back on.
+  - name: Yahoo Finance
+    url: https://finance.yahoo.com/news/rssindex
     themes: [markets, us]
     kind: media
-    enabled: false
+    enabled: false   # HTTP 404
+
+  - name: Nasdaq (markets)
+    url: https://www.nasdaq.com/feed/rssoutbound?category=Markets
+    themes: [markets, us]
+    kind: media
+    enabled: false   # times out
+
+  - name: FXStreet (forex and commodities)
+    url: https://www.fxstreet.com/rss/news
+    themes: [markets]
+    kind: media
+    enabled: false   # HTTP 403

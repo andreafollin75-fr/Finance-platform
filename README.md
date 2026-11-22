@@ -72,7 +72,7 @@ Edit `pipeline/sources.yml` and add a block like this:
     enabled: true
 ```
 
-Before adding a source, check that the URL really is an RSS or Atom feed in English, and that its terms of use allow this kind of reuse (headline, short excerpt and link). Record it in [SOURCES.md](SOURCES.md). To switch a source off, set `enabled: false`.
+Before adding a source, check that the URL really is an RSS or Atom feed in English, and that its terms of use allow this kind of reuse (headline, short excerpt and link). To test it, run `python -m pipeline.check_sources` (or, on GitHub, *Actions* > **Check sources** > **Run workflow**). Record it in [SOURCES.md](SOURCES.md). To switch a source off, set `enabled: false`.
 
 ## Add a glossary concept
 
