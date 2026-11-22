@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}{{ entry.title }} · Glossary · {{ site_name }}{% endblock %}
+{% block description %}{{ entry.short }}{% endblock %}
+{% block content %}
+<p class="breadcrumb"><a href="{{ base }}glossary/">Glossary</a></p>
+<article class="entry">
+  <h1>{{ entry.title }}</h1>
+  <p class="lead">{{ entry.short }}</p>
+  {{ entry.html }}
+  {% if related %}
+  <h2>Related concepts</h2>
+  <ul class="related-terms">
+    {% for r in related %}<li><a href="{{ base }}glossary/{{ r.slug }}/">{{ r.title }}</a></li>{% endfor %}
+  </ul>
+  {% endif %}
+</article>
+{% endblock %}

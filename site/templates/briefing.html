@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Daily Briefing · {{ site_name }}{% endblock %}
+{% block content %}
+<h1>Daily Briefing</h1>
+<p class="lead">The {{ rules.top }} most important stories of the last {{ rules.window }} hours, picked automatically by a simple, transparent rule. No AI is involved.</p>
+
+{% if stories %}
+<ol class="briefing-list">
+  {% for story in stories %}<li>{% set score = story.score %}{% include "_story.html" %}</li>{% endfor %}
+</ol>
+{% else %}
+<p class="notice">No stories in the last {{ rules.window }} hours yet.</p>
+{% endif %}
+
+<section class="method" aria-labelledby="how">
+  <h2 id="how">How stories are ranked</h2>
+  <p>Similar headlines from different sources are first grouped into one story. Each story then gets a score:</p>
+  <ul>
+    <li><strong>Coverage:</strong> 3 points for each source reporting the story (up to 5 sources). A story many outlets cover is usually more important.</li>
+    <li><strong>Freshness:</strong> up to 5 points, halved every {{ rules.half_life }} hours.</li>
+    <li><strong>Theme:</strong> +{{ rules.theme_bonus.macro }} for macro-economics and central banks, +{{ rules.theme_bonus.markets }} for markets.</li>
+    <li><strong>Official source:</strong> +{{ rules.official_bonus }} if a central bank, regulator or statistics office published it.</li>
+  </ul>
+  <p>At most {{ rules.per_source }} stories led by the same source are shown, so one feed cannot fill the whole briefing. This ranking is mechanical: it does not judge what matters for your own situation.</p>
+</section>
+{% endblock %}

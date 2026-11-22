@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Glossary · {{ site_name }}{% endblock %}
+{% block content %}
+<h1>Glossary</h1>
+<p class="lead">{{ entries | length }} financial concepts explained in plain English, each with a simple definition, a concrete example and why it matters.</p>
+<label class="search-label" for="glossary-search">Filter the glossary</label>
+<input id="glossary-search" class="search" type="search" placeholder="Type a word, e.g. inflation" autocomplete="off">
+<ul class="glossary-list">
+  {% for e in entries %}
+  <li data-search="{{ (e.title ~ ' ' ~ e.aliases | join(' ') ~ ' ' ~ e.short) | lower }}">
+    <a href="{{ base }}glossary/{{ e.slug }}/">{{ e.title }}</a>
+    <p>{{ e.short }}</p>
+  </li>
+  {% endfor %}
+</ul>
+<p class="empty-filter muted" hidden>No matching concept.</p>
+{% endblock %}

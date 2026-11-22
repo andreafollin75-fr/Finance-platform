@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>Sample Feed</title>
+    <link>https://example.com</link>
+    <description>Test feed used by the unit tests</description>
+    <item>
+      <title>Fed holds interest rates steady as inflation cools</title>
+      <link>https://example.com/news/fed-holds?utm_source=rss&amp;utm_medium=feed</link>
+      <description>&lt;p&gt;The Federal Reserve left its &lt;b&gt;policy rate&lt;/b&gt; unchanged on Wednesday.&lt;/p&gt;</description>
+      <pubDate>Fri, 20 Nov 2026 18:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>ECB's Lagarde signals patience on rate cuts</title>
+      <link>https://example.com/news/ecb-lagarde</link>
+      <description>Euro area inflation is close to target, the ECB president said.</description>
+      <pubDate>Fri, 20 Nov 2026 12:30:00 +0100</pubDate>
+    </item>
+    <item>
+      <title>Item without a link is skipped</title>
+      <description>No link here.</description>
+    </item>
+    <item>
+      <title>Item without a date gets the fetch time</title>
+      <link>https://example.com/news/no-date</link>
+    </item>
+  </channel>
+</rss>
