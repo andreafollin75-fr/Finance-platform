@@ -14,44 +14,55 @@ The list the pipeline actually uses is `pipeline/sources.yml`.
 
 ## Active sources
 
-Checked on 21 November 2026: each URL returned a valid RSS feed with items.
-"Last item" is the date of the newest item seen during that check.
+Checked from GitHub's servers on 22 November 2026 with `python -m pipeline.check_sources` (the "Check sources" workflow): every feed below returned a valid RSS feed with recent items.
 
-| Source | Feed URL | Themes | Type | Last item at check |
-|---|---|---|---|---|
-| European Central Bank (press) | https://www.ecb.europa.eu/rss/press.html | Europe, Macro | Official | 20 Nov 2026 |
-| European Central Bank (blog) | https://www.ecb.europa.eu/rss/blog.html | Europe, Macro | Official | 21 Oct 2026 |
-| Federal Reserve (all press releases) | https://www.federalreserve.gov/feeds/press_all.xml | US, Macro | Official | 20 Nov 2026 |
-| Federal Reserve (monetary policy) | https://www.federalreserve.gov/feeds/press_monetary.xml | US, Macro | Official | 18 Nov 2026 |
-| Federal Reserve (speeches) | https://www.federalreserve.gov/feeds/speeches.xml | US, Macro | Official | 20 Nov 2026 |
-| Bank of England (news) | https://www.bankofengland.co.uk/rss/news | Europe, Macro | Official | 19 Nov 2026 |
-| BIS (central bankers' speeches) | https://www.bis.org/doclist/cbspeeches.rss | Macro | Official | 19 Nov 2026 |
-| U.S. SEC (press releases) | https://www.sec.gov/news/pressreleases.rss | US, Markets | Official | 20 Nov 2026 |
-| Seeking Alpha (market news) | https://seekingalpha.com/market_currents.xml | Markets, US | Media | 21 Nov 2026 |
-| Investing.com (stock market news) | https://www.investing.com/rss/news_25.rss | Markets | Media | 15 Nov 2026 |
-| Investing.com (economy news) | https://www.investing.com/rss/news_14.rss | Macro | Media | 31 Oct 2026 |
-| Investing.com (forex news) | https://www.investing.com/rss/news_1.rss | Markets | Media | 23 Oct 2026 |
-| Yahoo Finance | https://finance.yahoo.com/news/rssindex | Markets, US | Media | 23 Sep 2026 |
-| Nasdaq (markets) | https://www.nasdaq.com/feed/rssoutbound?category=Markets | Markets, US | Media | 27 Oct 2026 |
-| FXStreet (forex and commodities) | https://www.fxstreet.com/rss/news | Markets | Media | 14 Oct 2026 |
+| Source | Feed URL | Themes | Type |
+|---|---|---|---|
+| European Central Bank (press) | https://www.ecb.europa.eu/rss/press.html | Europe, Macro | Official |
+| European Central Bank (blog) | https://www.ecb.europa.eu/rss/blog.html | Europe, Macro | Official |
+| Federal Reserve (all press releases) | https://www.federalreserve.gov/feeds/press_all.xml | US, Macro | Official |
+| Federal Reserve (monetary policy) | https://www.federalreserve.gov/feeds/press_monetary.xml | US, Macro | Official |
+| Federal Reserve (speeches) | https://www.federalreserve.gov/feeds/speeches.xml | US, Macro | Official |
+| Bank of England (news) | https://www.bankofengland.co.uk/rss/news | Europe, Macro | Official |
+| BIS (central bankers' speeches) | https://www.bis.org/doclist/cbspeeches.rss | Macro | Official |
+| U.S. SEC (press releases) | https://www.sec.gov/news/pressreleases.rss | US, Markets | Official |
+| Seeking Alpha (market news) | https://seekingalpha.com/market_currents.xml | Markets, US | Media |
+| Investing.com (stock market news) | https://www.investing.com/rss/news_25.rss | Markets | Media |
+| Investing.com (economy news) | https://www.investing.com/rss/news_14.rss | Macro | Media |
+| Investing.com (forex news) | https://www.investing.com/rss/news_1.rss | Markets | Media |
+| BBC News (business) | https://feeds.bbci.co.uk/news/business/rss.xml | Europe | Media |
+| The Guardian (business) | https://www.theguardian.com/business/rss | Europe | Media |
+| The Guardian (economics) | https://www.theguardian.com/business/economics/rss | Europe, Macro | Media |
+| CNBC (economy) | https://www.cnbc.com/id/20910258/device/rss/rss.html | US, Macro | Media |
+| CNBC (finance) | https://www.cnbc.com/id/10000664/device/rss/rss.html | US, Markets | Media |
+| MarketWatch (top stories) | https://feeds.content.dowjones.io/public/rss/mw_topstories | US, Markets | Media |
+| The Economist (finance and economics) | https://www.economist.com/finance-and-economics/rss.xml | Macro, Markets | Media |
 
 Notes:
-- Several media feeds showed old "newest item" dates during the check. This may come from caching by the tool used for checking rather than from the feeds themselves. The live status of each feed after every hourly run is shown on the site's About page; replace any feed that stays stale.
+- The live status of each feed after every hourly run is shown on the site's About page.
 - The SEC asks automated clients to declare who they are in the User-Agent and to stay well below 10 requests per second; one request per hour respects this.
 - The BIS feed is in RSS 1.0 (RDF) format, which the pipeline supports.
-- Media feeds (Seeking Alpha, Investing.com, Yahoo Finance, Nasdaq, FXStreet) are offered for personal, non-commercial use of headlines with links back. Check their current terms before any commercial use of the site.
+- Media feeds are offered for personal, non-commercial use of headlines with links back (for example the BBC and Guardian RSS terms). Check each publisher's current terms before any commercial use of the site.
 
-## Disabled: could not be verified
+## Disabled: failed from GitHub's servers
 
-These feeds could not be reached from the machine used to build the project (blocked or refused), so it was not possible to confirm that they work. They are listed in `sources.yml` with `enabled: false`. To try one, set `enabled: true`, run the workflow, and check the About page.
+Kept in `sources.yml` with `enabled: false`. Run the "Check sources" workflow before switching one back on.
 
-| Source | Feed URL |
-|---|---|
-| BBC News (business) | https://feeds.bbci.co.uk/news/business/rss.xml |
-| The Guardian (business) | https://www.theguardian.com/business/rss |
-| CNBC (economy) | https://www.cnbc.com/id/20910258/device/rss/rss.html |
+| Source | Feed URL | Result on 22 Nov 2026 |
+|---|---|---|
+| Yahoo Finance | https://finance.yahoo.com/news/rssindex | HTTP 404 |
+| Nasdaq (markets) | https://www.nasdaq.com/feed/rssoutbound?category=Markets | Timed out |
+| FXStreet (forex and commodities) | https://www.fxstreet.com/rss/news | HTTP 403 |
 
-Also tried and rejected: Bureau of Economic Analysis RSS (robots.txt disallows automated access), Eurostat news RSS (error), IMF news RSS (error), Financial Times, The Economist and MarketWatch (blocked), Bureau of Labor Statistics "latest numbers" feed (a single table item, not news).
+Also tried and rejected: Yahoo Finance top stories RSS (HTTP 404), Bureau of Economic Analysis RSS (robots.txt disallows automated access), Eurostat news RSS and IMF news RSS (errors), Financial Times (not checked further: its RSS terms are restrictive), Bureau of Labor Statistics "latest numbers" feed (a single table item, not news).
+
+## How to check a source
+
+```bash
+python -m pipeline.check_sources
+```
+
+or, on GitHub: *Actions* tab > **Check sources** > **Run workflow**. The report lists every feed in `sources.yml`, enabled or not, with the number of items and the date of the newest one.
 
 ## Planned for Phase 2 (market data, not used yet)
 
