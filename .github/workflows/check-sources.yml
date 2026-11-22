@@ -1,0 +1,27 @@
+# Tests every feed in pipeline/sources.yml (enabled or not) and prints a report.
+# Runs on demand (Actions tab > "Check sources" > Run workflow) and on pull
+# requests that change sources.yml. It only reports; it never blocks anything.
+name: Check sources
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - pipeline/sources.yml
+      - pipeline/check_sources.py
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - run: python -m pipeline.check_sources

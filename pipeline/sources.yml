@@ -117,8 +117,38 @@ sources:
     kind: media
     enabled: false
 
+  - name: The Guardian (economics)
+    url: https://www.theguardian.com/business/economics/rss
+    themes: [macro]
+    kind: media
+    enabled: false
+
   - name: CNBC (economy)
     url: https://www.cnbc.com/id/20910258/device/rss/rss.html
     themes: [us, macro]
+    kind: media
+    enabled: false
+
+  - name: CNBC (finance)
+    url: https://www.cnbc.com/id/10000664/device/rss/rss.html
+    themes: [us, markets]
+    kind: media
+    enabled: false
+
+  - name: MarketWatch (top stories)
+    url: https://feeds.content.dowjones.io/public/rss/mw_topstories
+    themes: [us, markets]
+    kind: media
+    enabled: false
+
+  - name: The Economist (finance and economics)
+    url: https://www.economist.com/finance-and-economics/rss.xml
+    themes: [macro, markets]
+    kind: media
+    enabled: false
+
+  - name: Yahoo Finance (top stories)
+    url: https://finance.yahoo.com/rss/topstories
+    themes: [markets, us]
     kind: media
     enabled: false
